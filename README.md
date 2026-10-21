@@ -4,7 +4,7 @@ Swift Package Manager distribution of [resvg](https://github.com/linebender/resv
 
 > Package versions mirror the bundled resvg version.
 
-> **iOS-only for now.** Ships `ios-arm64` (device) and `ios-arm64-simulator` slices. macOS / Catalyst / tvOS are not yet supported.
+> **iOS-only for now.** Ships `ios-arm64` (device) and `ios-arm64_x86_64-simulator` slices. macOS / Catalyst / tvOS are not yet supported.
 
 ## Requirements
 

@@ -9,7 +9,7 @@ REPO="https://github.com/linebender/resvg.git"
 SRC=".resvg-src"
 FRAMEWORK="resvg.xcframework"
 ZIP="resvg.xcframework.zip"
-TARGETS=(aarch64-apple-ios aarch64-apple-ios-sim)
+TARGETS=(aarch64-apple-ios aarch64-apple-ios-sim x86_64-apple-ios)
 
 TAG="${1:-$(git ls-remote --tags --refs "$REPO" 'v*' \
   | awk -F/ '{print $NF}' | sort -V | tail -1)}"
@@ -36,11 +36,19 @@ module CResvg {
 }
 EOF
 
+echo "==> merging simulator slices"
+SIM_LIB="$SRC/target/apple-ios-sim-universal/libresvg.a"
+mkdir -p "$(dirname "$SIM_LIB")"
+lipo -create \
+  "$SRC/target/aarch64-apple-ios-sim/release/libresvg.a" \
+  "$SRC/target/x86_64-apple-ios/release/libresvg.a" \
+  -output "$SIM_LIB"
+
 echo "==> creating $FRAMEWORK"
 rm -rf "$FRAMEWORK" "$ZIP"
 xcodebuild -create-xcframework \
   -library "$SRC/target/aarch64-apple-ios/release/libresvg.a" -headers "$H" \
-  -library "$SRC/target/aarch64-apple-ios-sim/release/libresvg.a" -headers "$H" \
+  -library "$SIM_LIB" -headers "$H" \
   -output "$FRAMEWORK"
 
 zip -r -q "$ZIP" "$FRAMEWORK"
