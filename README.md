@@ -2,7 +2,7 @@
 
 Swift Package Manager distribution of [resvg](https://github.com/linebender/resvg) — a fast, correct SVG rendering library written in Rust — as a prebuilt `xcframework` plus a thin Swift overlay.
 
-> Package versions mirror the bundled resvg version.
+> Package versions mirror the bundled resvg version, with optional packaging suffixes such as `-universal`.
 
 > **iOS-only for now.** Ships `ios-arm64` (device) and `ios-arm64_x86_64-simulator` slices. macOS / Catalyst / tvOS are not yet supported.
 
@@ -16,7 +16,7 @@ Swift Package Manager distribution of [resvg](https://github.com/linebender/resv
 Add the dependency in Xcode (*File ▸ Add Package Dependencies…*) or in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/silvansky/resvg-spm.git", from: "0.47.0")
+.package(url: "https://github.com/silvansky/resvg-spm.git", exact: "0.47.0-universal")
 ```
 
 ```swift
